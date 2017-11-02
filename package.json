@@ -1,0 +1,24 @@
+{
+  "name": "array-chunk-by-size",
+  "version": "0.1.0",
+  "main": "index.js",
+  "description": "Chunk array of objects by their size in JSON",
+  "keywords": [
+    "array",
+    "chunk",
+    "json",
+    "split",
+    "separate",
+    "string"
+  ],
+  "repository": "https://github.com/vladgolubev/array-chunk-by-size",
+  "files": ["index.js"],
+  "author": "Vlad Holubiev",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
