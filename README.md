@@ -20,7 +20,7 @@ import {chunkArray} from 'array-chunk-by-size';
 const bigArray = [{a: 1}, {b: 2}, {c: 3}];
 const twoKilobytes = 2 * 1024;
 
-const smallerArrays = chunkArray(bigArray, twoKilobytes);
+const smallerArrays = chunkArray({input: bigArray, bytesSize: twoKilobytes});
 // => [ [ ... ], [ ... ] ] and so on
 ```
 
