@@ -44,7 +44,7 @@ module.exports.chunkArray = function({input, bytesSize = Number.MAX_SAFE_INTEGER
 function getObjectSize(obj) {
   try {
     const str = stringify(obj);
-    return str.length;
+    return Buffer.byteLength(str, 'utf8');
   } catch (error) {
     return 0;
   }

@@ -1,7 +1,11 @@
 const {chunkArray} = require('.');
 
-function getObjWithSize(bytes) {
-  return {abcd: 'a'.repeat(bytes - 11)}
+function getObjWithSize(times) {
+  return {abcd: 'a'.repeat(times - 11)}
+}
+
+function getObjWithSizePoop(times) {
+  return {abcd: '💩'.repeat(times - 1)}
 }
 
 it('should export chunkArray function', () => {
@@ -30,6 +34,19 @@ it('should split 3 equal items into 2 chunks 2+1', () => {
   expect(output).toEqual([
     [getObjWithSize(100), getObjWithSize(100)],
     [getObjWithSize(100)]
+  ]);
+});
+
+it('should split 3 equal items into 2 chunks 2+1 if not 100 but 25 symbols of 4 bytes', () => {
+  const input = [
+    getObjWithSizePoop(23), getObjWithSizePoop(23),
+    getObjWithSizePoop(23)
+  ];
+  const output = chunkArray({input, bytesSize: 200});
+
+  expect(output).toEqual([
+    [getObjWithSizePoop(23), getObjWithSizePoop(23)],
+    [getObjWithSizePoop(23)]
   ]);
 });
 
