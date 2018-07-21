@@ -27,7 +27,7 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "jest": "^21.2.1"
+    "jest": "21.2.1"
   },
   "dependencies": {
     "json-stringify-safe": "^5.0.1"
