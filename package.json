@@ -4,7 +4,7 @@
   "main": "index.js",
   "description": "Chunk array of objects by their size in JSON",
   "engines": {
-    "node": "6.x.x"
+    "node": "14.x"
   },
   "keywords": [
     "array",
