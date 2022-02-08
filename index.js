@@ -19,7 +19,7 @@ module.exports.chunkArray = function({input, bytesSize = Number.MAX_SAFE_INTEGER
   for (let obj of input) {
     const objSize = getObjectSize(obj);
     if (objSize > bytesSize && failOnOversize) {
-      throw new Error(`Can't chunk array as item is bigger than max chunk size`)
+      throw new Error(`Can't chunk array as item is bigger than the max chunk size`)
     }
 
     const fitsIntoLastChunk = (outputSize + objSize) <= bytesSize;
