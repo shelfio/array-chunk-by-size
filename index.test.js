@@ -116,4 +116,29 @@ it('should split complex structure w/ empty array', () => {
     [getObjWithSize(1024)],
     [{}, {}]
   ]);
+})
+
+it('should split complex structure w/ empty array 2', () => {
+  const input = [getObjWithSize(25000), getObjWithSize(25000), getObjWithSize(25000), getObjWithSize(25000), getObjWithSize(25000), getObjWithSize(25000), getObjWithSize(25000), getObjWithSize(25000), getObjWithSize(25000), getObjWithSize(25000)];
+  const output = chunkArray({input, bytesSize: 230000});
+
+  expect(output[0].length).toEqual(9);
+});
+
+it('should throw error in case of too big object if failOnOversize passed', () => {
+  const input = [getObjWithSize(25000), getObjWithSize(250000), getObjWithSize(25000)];
+  expect.assertions(1);
+
+  try {
+    chunkArray({input, bytesSize: 230000, failOnOversize: true});
+  } catch(e) {
+    expect(e.message).toEqual(`Can't chunk array as item is bigger than the max chunk size`)
+  }
+});
+
+it('should not throw error in case of too big object by default', () => {
+  const input = [getObjWithSize(25000), getObjWithSize(250000), getObjWithSize(25000)];
+
+  const output = chunkArray({input, bytesSize: 230000});
+  expect(output[2].length).toEqual(1);
 });
