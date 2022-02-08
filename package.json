@@ -1,6 +1,6 @@
 {
   "name": "array-chunk-by-size",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "index.js",
   "description": "Chunk array of objects by their size in JSON",
   "engines": {
