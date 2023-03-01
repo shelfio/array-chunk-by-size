@@ -1,7 +1,10 @@
 .idea/
 coverage/
-lib/
 node_modules/
-
-.DS_Store
+lib/
+temp
 yarn.lock
+*.log
+.DS_Store
+dist/
+!.husky/_/husky.sh

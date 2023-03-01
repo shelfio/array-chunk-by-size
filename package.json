@@ -1,11 +1,7 @@
 {
   "name": "array-chunk-by-size",
-  "version": "2.1.1",
-  "main": "index.js",
+  "version": "3.0.0",
   "description": "Chunk array of objects by their size in JSON",
-  "engines": {
-    "node": ">=6"
-  },
   "keywords": [
     "array",
     "chunk",
@@ -14,22 +10,58 @@
     "separate",
     "string"
   ],
-  "repository": "https://github.com/vladgolubev/array-chunk-by-size",
+  "repository": "shelfio/array-chunk-by-size",
+  "main": "lib",
   "files": [
-    "index.js"
+    "lib/"
   ],
-  "author": "Vlad Holubiev",
-  "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "build": "rm -rf lib/ && yarn build:types && babel src --out-dir lib --ignore '**/*.test.ts' --extensions '.ts'",
+    "build:types": "tsc --emitDeclarationOnly --declaration --isolatedModules false --declarationDir lib",
+    "coverage": "jest --coverage",
+    "lint": "eslint . --ext .js,.ts,.json --fix",
+    "lint:ci": "eslint . --ext .js,.ts,.json",
+    "prepack": "yarn build",
+    "test": "export ENVIRONMENT=local && jest src",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
   },
-  "jest": {
-    "testEnvironment": "node"
+  "lint-staged": {
+    "*.{html,md,yml}": [
+      "prettier --write"
+    ],
+    "*.{ts,js,json}": [
+      "eslint --fix"
+    ]
   },
-  "devDependencies": {
-    "jest": "26.6.3"
+  "babel": {
+    "extends": "@shelf/babel-config/backend"
   },
+  "prettier": "@shelf/prettier-config",
   "dependencies": {
     "json-stringify-safe": "5.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.19.3",
+    "@babel/core": "7.20.2",
+    "@shelf/babel-config": "1.2.0",
+    "@shelf/eslint-config": "2.22.0",
+    "@shelf/prettier-config": "1.0.0",
+    "@shelf/tsconfig": "0.0.8",
+    "@types/cwd": "^0.10.0",
+    "@types/jest": "28.1.8",
+    "@types/node": "16",
+    "eslint": "8.26.0",
+    "husky": "8.0.2",
+    "jest": "28.1.3",
+    "lint-staged": "13.0.3",
+    "prettier": "2.7.1",
+    "typescript": "4.8.4"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
