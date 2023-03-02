@@ -1,4 +1,4 @@
-# array-chunk-by-size
+# array-chunk-by-size [![CircleCI](https://img.shields.io/circleci/project/shelfio/array-chunk-by-size.svg)](https://circleci.com/gh/shelfio/array-chunk-by-size)
 
 > Chunk array of objects by their size in JSON
 
