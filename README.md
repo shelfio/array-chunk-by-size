@@ -24,6 +24,20 @@ const smallerArrays = chunkArray({input: bigArray, bytesSize: twoKilobytes});
 // => [ [ ... ], [ ... ] ] and so on
 ```
 
+## See Also
+- [fast-normalize-spaces](https://github.com/shelfio/fast-normalize-spaces)
+- [fast-natural-order-by](https://github.com/shelfio/fast-natural-order-by)
+- [fast-uslug](https://github.com/shelfio/fast-uslug)
+
+## Publish
+
+```sh
+$ git checkout master
+$ yarn version
+$ yarn publish
+$ git push origin master --tags
+```
+
 ## License
 
-MIT © [Vlad Holubiev](https://vladholubiev.com)
+MIT © [Shelf](https://shelf.io)
