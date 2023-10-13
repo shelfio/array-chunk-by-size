@@ -1,4 +1,4 @@
-const stringify = require('json-stringify-safe');
+import stringify from 'json-stringify-safe';
 
 /**
  * Chunk array of objects by their size when stringifies into JSON
