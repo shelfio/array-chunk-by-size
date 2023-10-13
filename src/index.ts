@@ -1,20 +1,25 @@
 import stringify from 'json-stringify-safe';
 
+type SizeCalcFunction<T> = (obj: T) => number;
+
 /**
  * Chunk array of objects by their size when stringifies into JSON
  * @param {Object[]} input Array of objects to chunk
  * @param {Number} bytesSize Amount of bytes each chunk can have at max
  * @param {Boolean} failOnOversize Throw error if item is too big
+ * @param {Function} sizeCalcFunction Custom function to calculate size of each item
  * @return {Object[][]} Array of arrays - chunked array by size
  */
 export function chunkArray<T>({
   input,
   bytesSize = Number.MAX_SAFE_INTEGER,
   failOnOversize = false,
+  sizeCalcFunction = getObjectSize<T>,
 }: {
   input: T[];
   bytesSize?: number;
   failOnOversize?: boolean;
+  sizeCalcFunction?: SizeCalcFunction<T>;
 }): T[][] {
   const output: T[][] = [];
   let outputSize = 0;
@@ -25,7 +30,7 @@ export function chunkArray<T>({
   }
 
   for (const obj of input) {
-    const objSize = getObjectSize(obj);
+    const objSize = sizeCalcFunction(obj);
 
     if (objSize > bytesSize && failOnOversize) {
       throw new Error(`Can't chunk array as item is bigger than the max chunk size`);

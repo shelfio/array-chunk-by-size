@@ -24,7 +24,25 @@ const smallerArrays = chunkArray({input: bigArray, bytesSize: twoKilobytes});
 // => [ [ ... ], [ ... ] ] and so on
 ```
 
+Alternatively, you might pass a custom size calculation function.
+For example, to chunk array by LLM tokens size:
+
+```js
+import {chunkArray} from '@shelf/array-chunk-by-size';
+import {encode} from 'gpt-3-encoder';
+
+const bigArray = ['msg-1', 'msg-2'];
+const gpt3MaxTokens = 4000;
+
+const smallerArrays = chunkArray({
+  input: bigArray,
+  bytesSize: gpt3MaxTokens,
+  sizeCalcFunction: item => encode(item).length,
+});
+```
+
 ## See Also
+
 - [fast-normalize-spaces](https://github.com/shelfio/fast-normalize-spaces)
 - [fast-natural-order-by](https://github.com/shelfio/fast-natural-order-by)
 - [fast-uslug](https://github.com/shelfio/fast-uslug)

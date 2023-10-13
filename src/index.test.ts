@@ -8,10 +8,6 @@ function getObjWithSizePoop(times: number) {
   return {abcd: '💩'.repeat(times - 1)};
 }
 
-it('should export chunkArray function', () => {
-  expect(chunkArray).toBeInstanceOf(Function);
-});
-
 it('should return empty array if empty passed', () => {
   const output = chunkArray({input: []});
 
@@ -47,6 +43,13 @@ it('should handle strings as well', () => {
   const output = chunkArray({input, bytesSize: 200});
 
   expect(output).toEqual([[getObjWithSize(100), '{{{'], [getObjWithSize(100)]]);
+});
+
+it('should use custom size calc function', () => {
+  const input = ['abcd', 'abcd', 'abcd', 'abcd'];
+  const output = chunkArray({input, bytesSize: 4, sizeCalcFunction: obj => obj.length / 4});
+
+  expect(output).toEqual([['abcd', 'abcd', 'abcd', 'abcd']]);
 });
 
 it('should split 4 items into 2 chunks 1+1+1+1', () => {
