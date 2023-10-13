@@ -1,6 +1,6 @@
 {
   "name": "@shelf/array-chunk-by-size",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Chunk array of objects by their size in JSON",
   "keywords": [
     "array",
