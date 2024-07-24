@@ -47,7 +47,7 @@
     "@shelf/babel-config": "1.2.0",
     "@shelf/eslint-config": "2.22.0",
     "@shelf/prettier-config": "1.0.0",
-    "@shelf/tsconfig": "0.0.8",
+    "@shelf/tsconfig": "0.1.0",
     "@types/cwd": "^0.10.0",
     "@types/jest": "28.1.8",
     "@types/json-stringify-safe": "5.0.3",
