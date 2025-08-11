@@ -11,17 +11,20 @@
     "string"
   ],
   "repository": "shelfio/array-chunk-by-size",
-  "main": "lib",
+  "type": "module",
+  "exports": "./lib/index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib/"
   ],
   "scripts": {
-    "build": "rm -rf lib/ && yarn build:types && babel src --out-dir lib --ignore '**/*.test.ts' --extensions '.ts'",
-    "build:types": "tsc --emitDeclarationOnly --declaration --isolatedModules false --declarationDir lib",
+    "build": "rm -rf lib/ && tsc",
     "coverage": "jest --coverage",
-    "lint": "eslint . --ext .js,.ts,.json --fix",
-    "lint:ci": "eslint . --ext .js,.ts,.json",
+    "lint": "yarn lint:ci --fix",
+    "lint:ci": "eslint .",
     "prepack": "yarn build",
+    "prepare": "husky",
     "test": "export ENVIRONMENT=local && jest src",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
@@ -34,24 +37,15 @@
       "eslint --fix"
     ]
   },
-  "babel": {
-    "extends": "@shelf/babel-config/backend"
-  },
   "prettier": "@shelf/prettier-config",
-  "dependencies": {
-    "json-stringify-safe": "5.0.1"
-  },
   "devDependencies": {
-    "@babel/cli": "7.27.0",
-    "@babel/core": "7.26.10",
-    "@shelf/babel-config": "1.2.0",
     "@shelf/eslint-config": "2.22.0",
     "@shelf/prettier-config": "1.0.0",
     "@shelf/tsconfig": "0.1.0",
-    "@types/cwd": "^0.10.0",
+    "@swc/core": "1.7.35",
+    "@swc/jest": "0.2.36",
     "@types/jest": "28.1.8",
-    "@types/json-stringify-safe": "5.0.3",
-    "@types/node": "16",
+    "@types/node": "22",
     "eslint": "8.57.1",
     "husky": "8.0.3",
     "jest": "28.1.3",
@@ -60,7 +54,7 @@
     "typescript": "4.9.5"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=22"
   },
   "publishConfig": {
     "access": "public"

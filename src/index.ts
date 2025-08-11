@@ -1,5 +1,3 @@
-import stringify from 'json-stringify-safe';
-
 type SizeCalcFunction<T> = (obj: T) => number;
 
 /**
@@ -60,9 +58,24 @@ export function chunkArray<T>({
   return output;
 }
 
+function safeStringify(obj: unknown): string {
+  const seen = new WeakSet();
+
+  return JSON.stringify(obj, (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) {
+        return '[Circular]';
+      }
+      seen.add(value);
+    }
+
+    return value;
+  });
+}
+
 function getObjectSize<T>(obj: T): number {
   try {
-    const str = stringify(obj);
+    const str = safeStringify(obj);
 
     return Buffer.byteLength(str, 'utf8');
   } catch (error) {
