@@ -1,10 +1,39 @@
-.idea/
-coverage/
+# Dependencies
 node_modules/
+
+# Build outputs
 lib/
-temp
-yarn.lock
+coverage/
+
+# Environment and configuration
+.env
+
+# Draft files
+draft.js
+*.draft.js
+draft.ts
+*.draft.ts
+
+# Logs and test reports
 *.log
-.DS_Store
-dist/
+junit.xml
+
+# Package managers
+yarn.lock
+
+# IDE and editors
+.vscode/
+.idea/
+
+# Development tools
+.serverless/
+.aider*
+!.aiderignore
+claude.local.json
+.claude/settings.local.json
+
+# Husky
 !.husky/_/husky.sh
+
+# System files
+.DS_Store
