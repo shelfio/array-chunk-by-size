@@ -141,8 +141,9 @@ it('should throw error in case of too big object if failOnOversize passed', () =
   try {
     chunkArray({input, bytesSize: 230000, failOnOversize: true});
   } catch (e) {
-    // @ts-ignore
-    expect(e.message).toEqual(`Can't chunk array as item is bigger than the max chunk size`);
+    expect((e as Error).message).toEqual(
+      `Can't chunk array as item is bigger than the max chunk size`
+    );
   }
 });
 

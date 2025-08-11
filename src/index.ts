@@ -19,13 +19,13 @@ export function chunkArray<T>({
   failOnOversize?: boolean;
   sizeCalcFunction?: SizeCalcFunction<T>;
 }): T[][] {
-  const output: T[][] = [];
-  let outputSize = 0;
-  let outputFreeIndex = 0;
-
   if (!input || input.length === 0 || bytesSize <= 0) {
-    return output;
+    return [];
   }
+
+  const output: T[][] = [];
+  let currentChunk: T[] = [];
+  let currentChunkSize = 0;
 
   for (const obj of input) {
     const objSize = sizeCalcFunction(obj);
@@ -34,25 +34,18 @@ export function chunkArray<T>({
       throw new Error(`Can't chunk array as item is bigger than the max chunk size`);
     }
 
-    const fitsIntoLastChunk = outputSize + objSize <= bytesSize;
-
-    if (fitsIntoLastChunk) {
-      if (!Array.isArray(output[outputFreeIndex])) {
-        output[outputFreeIndex] = [];
-      }
-
-      output[outputFreeIndex].push(obj);
-      outputSize += objSize;
-    } else {
-      if (output[outputFreeIndex]) {
-        outputFreeIndex++;
-        outputSize = 0;
-      }
-
-      output[outputFreeIndex] = [];
-      output[outputFreeIndex].push(obj);
-      outputSize += objSize;
+    if (currentChunkSize + objSize > bytesSize && currentChunk.length > 0) {
+      output.push(currentChunk);
+      currentChunk = [];
+      currentChunkSize = 0;
     }
+
+    currentChunk.push(obj);
+    currentChunkSize += objSize;
+  }
+
+  if (currentChunk.length > 0) {
+    output.push(currentChunk);
   }
 
   return output;
@@ -78,7 +71,7 @@ function getObjectSize<T>(obj: T): number {
     const str = safeStringify(obj);
 
     return Buffer.byteLength(str, 'utf8');
-  } catch (error) {
+  } catch {
     return 0;
   }
 }
