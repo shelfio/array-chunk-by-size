@@ -159,3 +159,14 @@ it('should not throw error in case of too big object by default', () => {
 
   expect(output[2]).toHaveLength(1);
 });
+
+it('should handle circular references', () => {
+  const circular = {label: 'circular'} as {label: string; self?: unknown};
+  circular.self = circular;
+
+  const output = chunkArray({input: [circular], bytesSize: 1024});
+
+  expect(output).toHaveLength(1);
+  expect(output[0]).toHaveLength(1);
+  expect(output[0][0]).toBe(circular);
+});
