@@ -51,10 +51,10 @@ export function chunkArray<T>({
   return output;
 }
 
-function safeStringify(obj: unknown): string {
+function safeStringify(obj: unknown): string | undefined {
   const seen = new WeakSet();
 
-  return JSON.stringify(obj, (key, value) => {
+  return JSON.stringify(obj, (_key, value) => {
     if (typeof value === 'object' && value !== null) {
       if (seen.has(value)) {
         return '[Circular]';
@@ -68,10 +68,20 @@ function safeStringify(obj: unknown): string {
 
 function getObjectSize<T>(obj: T): number {
   try {
-    const str = safeStringify(obj);
+    const fastStringified = JSON.stringify(obj);
 
-    return Buffer.byteLength(str, 'utf8');
+    if (fastStringified !== undefined) {
+      return Buffer.byteLength(fastStringified);
+    }
   } catch {
-    return 0;
+    try {
+      const safeStringified = safeStringify(obj);
+
+      return safeStringified === undefined ? 0 : Buffer.byteLength(safeStringified);
+    } catch {
+      return 0;
+    }
   }
+
+  return 0;
 }

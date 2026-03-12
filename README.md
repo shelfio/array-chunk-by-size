@@ -5,7 +5,7 @@
 ## Install
 
 ```
-$ yarn add @shelf/array-chunk-by-size
+$ pnpm add @shelf/array-chunk-by-size
 ```
 
 ## Usage
@@ -52,8 +52,8 @@ const smallerArrays = chunkArray({
 
 ```sh
 $ git checkout master
-$ yarn version
-$ yarn publish
+$ pnpm version
+$ pnpm publish
 $ git push origin master --tags
 ```
 

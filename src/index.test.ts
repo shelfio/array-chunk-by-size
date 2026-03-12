@@ -1,3 +1,4 @@
+import {expect, it} from 'vitest';
 import {chunkArray} from './index';
 
 function getObjWithSize(times: number) {
@@ -47,7 +48,11 @@ it('should handle strings as well', () => {
 
 it('should use custom size calc function', () => {
   const input = ['abcd', 'abcd', 'abcd', 'abcd'];
-  const output = chunkArray({input, bytesSize: 4, sizeCalcFunction: obj => obj.length / 4});
+  const output = chunkArray({
+    input,
+    bytesSize: 4,
+    sizeCalcFunction: obj => obj.length / 4,
+  });
 
   expect(output).toEqual([['abcd', 'abcd', 'abcd', 'abcd']]);
 });
@@ -153,4 +158,15 @@ it('should not throw error in case of too big object by default', () => {
   const output = chunkArray({input, bytesSize: 230000});
 
   expect(output[2]).toHaveLength(1);
+});
+
+it('should handle circular references', () => {
+  const circular = {label: 'circular'} as {label: string; self?: unknown};
+  circular.self = circular;
+
+  const output = chunkArray({input: [circular], bytesSize: 1024});
+
+  expect(output).toHaveLength(1);
+  expect(output[0]).toHaveLength(1);
+  expect(output[0][0]).toBe(circular);
 });
