@@ -1,3 +1,4 @@
+import {expect, it} from 'vitest';
 import {chunkArray} from './index';
 
 function getObjWithSize(times: number) {
