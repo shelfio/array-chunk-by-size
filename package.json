@@ -19,6 +19,7 @@
     "lib/"
   ],
   "scripts": {
+    "benchmark": "pnpm run build && node benchmark.js",
     "build": "rm -rf lib/ && tsc",
     "coverage": "vitest run --coverage",
     "lint": "biome check --write .",
@@ -40,6 +41,7 @@
     "@vitest/coverage-v8": "4.0.18",
     "husky": "9.1.7",
     "lint-staged": "16.1.5",
+    "tinybench": "6.0.0",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
   },
