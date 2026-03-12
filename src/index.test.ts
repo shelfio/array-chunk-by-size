@@ -47,7 +47,11 @@ it('should handle strings as well', () => {
 
 it('should use custom size calc function', () => {
   const input = ['abcd', 'abcd', 'abcd', 'abcd'];
-  const output = chunkArray({input, bytesSize: 4, sizeCalcFunction: obj => obj.length / 4});
+  const output = chunkArray({
+    input,
+    bytesSize: 4,
+    sizeCalcFunction: obj => obj.length / 4,
+  });
 
   expect(output).toEqual([['abcd', 'abcd', 'abcd', 'abcd']]);
 });

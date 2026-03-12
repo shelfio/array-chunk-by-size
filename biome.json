@@ -1,0 +1,121 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.6/schema.json",
+  "vcs": {"enabled": true, "clientKind": "git", "useIgnoreFile": true},
+  "files": {"ignoreUnknown": false},
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 100,
+    "attributePosition": "auto",
+    "bracketSameLine": false,
+    "bracketSpacing": false,
+    "expand": "auto",
+    "useEditorconfig": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "complexity": {
+        "noExcessiveCognitiveComplexity": {
+          "level": "warn",
+          "options": {"maxAllowedComplexity": 5}
+        }
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error"
+      },
+      "style": {
+        "noNestedTernary": "error",
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "paths": {
+              "lodash": "Use native methods or smaller focused utilities instead.",
+              "underscore": "Use native methods or smaller focused utilities instead."
+            }
+          }
+        },
+        "useConsistentTypeDefinitions": {
+          "level": "error",
+          "options": {"style": "type"}
+        },
+        "useImportType": {
+          "level": "error",
+          "options": {"style": "separatedType"}
+        }
+      },
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "useAwait": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["package.json"],
+      "formatter": {"enabled": false}
+    },
+    {
+      "includes": ["renovate.json", "tsconfig.json"],
+      "assist": {"enabled": false},
+      "formatter": {"enabled": false},
+      "linter": {"enabled": false}
+    },
+    {
+      "includes": ["src/index.ts"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noExcessiveCognitiveComplexity": {
+              "level": "warn",
+              "options": {"maxAllowedComplexity": 15}
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*mock.ts",
+        "**/*mock.tsx",
+        "**/*mocks.ts",
+        "**/*mocks.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "suspicious": {"noExplicitAny": "off"}
+        }
+      }
+    }
+  ],
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "es5",
+      "semicolons": "always",
+      "arrowParentheses": "asNeeded",
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto",
+      "bracketSpacing": false
+    }
+  },
+  "html": {
+    "formatter": {
+      "indentScriptAndStyle": false,
+      "selfCloseVoidElements": "always"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {"source": {"organizeImports": "on"}}
+  }
+}
